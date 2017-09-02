@@ -18,7 +18,7 @@ var (
 )
 
 func main() {
-	// log.SetFlags(log.Ltime | log.Lshortfile)
+	// log.SetFlags(log.Ltime | log.Llongfile)
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 	case server.FullCommand():
 		expose.RunServer()

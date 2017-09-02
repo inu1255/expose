@@ -1,0 +1,33 @@
+syntax = "proto3";
+package msg;
+
+// 定义Hello服务
+service ComputerService {
+    rpc Register(ComputerRegisterBody) returns (Computer) {}
+    rpc Exist(String) returns (Int) {}
+    rpc AskAddr(SrcDst) returns (String) {}
+}
+
+message ComputerRegisterBody {
+    string mac = 1;
+    string name = 2;
+}
+
+message Computer {
+    string id = 1;
+    string mac = 2;
+    string name = 3;
+}
+
+message String {
+    string s = 1;
+}
+
+message SrcDst{
+    string src = 1;
+    string dst = 2;
+}
+
+message Int {
+    int32 i = 1;
+}

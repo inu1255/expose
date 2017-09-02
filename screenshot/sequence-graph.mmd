@@ -1,0 +1,18 @@
+graph TD
+    server[Server<br/>rpc,tcp,udp]
+    client[Client Server<br/>]
+    connecter[Connecter<br/>]
+    client--tcp:1-->server
+    connecter--udp:2-->Route2
+    Route2--udp:3-->server
+    server--udp:4-->Route2
+    Route2--udp:5-->connecter
+    connecter--rpc:6-->server
+    server--tcp:7-->client
+    client--udp:8-->Route1
+    Route1--udp:9-->server
+    server--rpc:10-->connecter
+    connecter--udp:11-->Route1
+    Route1--udp:12-->client
+    client--udp:13-->Route2
+    Route2--udp:14-->connecter

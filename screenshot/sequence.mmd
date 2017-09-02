@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant client
+    participant server
+    participant connecter
+    client->>server: (1) i am id:(xxx) (tcp,wait step (7))
+    connecter-->>server: (2) give me my remote address
+    server-->>connecter: (3) your remote address is 1.2.3.4:5678
+    connecter->>server: (4) 1.2.3.4:5678 want to connect id:(xxx)
+    server->>client: (5) 1.2.3.4:5678 need your remote address
+    client-->>server: (6) i am id:(xxx) (send by udp:8.7.6.5:4321)
+    server->>connecter: (7) id:(xxx) is at 8.7.6.5:4321
+    connecter-->>client: (8) connected by 8.7.6.5:4321
+    client-->>connecter: (9) connected by 1.2.3.4:5678

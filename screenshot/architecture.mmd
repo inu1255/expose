@@ -1,0 +1,11 @@
+graph TD
+    server[Server<br/>outer net]
+    client[Client A<br/>inner net]
+    connecter[Client B<br/>inner net]
+    Route1[Router A<br/>outer net]
+    Route2[Router B<br/>outer net]
+    server---Route1
+    Route1---client
+    server---Route2
+    Route2---connecter
+    Route1-.-Route2

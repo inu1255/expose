@@ -54,7 +54,7 @@ func (this *Client) handleConnect(addr string) {
 		return
 	}
 	server_addr, _ := net.ResolveUDPAddr("udp", config.Cfg.Client.UdpAddress)
-	conn, err := net.ListenUDP("udp4", nil)
+	conn, err := net.ListenUDP("udp", nil)
 	if err != nil {
 		log.Println(err)
 		return

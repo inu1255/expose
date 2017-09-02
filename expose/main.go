@@ -25,8 +25,8 @@ func main() {
 	case client.FullCommand():
 		if config.Cfg.Client.Id == "" {
 			log.Println("you don't have a id register...")
-			connecter := expose.NewConnecter()
-			computer, err := connecter.RegistComputer()
+			rpcc := expose.NewRpcClient()
+			computer, err := rpcc.RegistComputer()
 			if err != nil {
 				log.Println(err)
 				return

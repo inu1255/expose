@@ -6,36 +6,16 @@ import (
 	"os"
 
 	"github.com/inu1255/expose/config"
-	"github.com/inu1255/expose/msg"
-	"golang.org/x/net/context"
-	"google.golang.org/grpc"
 )
 
 type Connecter struct {
-	conn         *grpc.ClientConn
-	ctx          context.Context
-	ComputerServ msg.ComputerServiceClient
-}
-
-func (this *Connecter) RegistComputer() (*msg.Computer, error) {
-	body := &msg.ComputerRegisterBody{Name: "xxx", Mac: "ac:bc:32:98:b9:37"}
-	computer, err := this.ComputerServ.Register(this.ctx, body)
-	return computer, err
-}
-
-func (this *Connecter) askAddr(srcAddr, id string) (string, error) {
-	body := &msg.SrcDst{srcAddr, id}
-	addr, err := this.ComputerServ.AskAddr(this.ctx, body)
-	if err != nil {
-		return "", err
-	}
-	return addr.GetS(), nil
+	rpcc *RpcClient
 }
 
 // connect to A client with id
 func (this *Connecter) Connect(id string) {
 	// create conn
-	conn, err := net.ListenUDP("udp4", nil)
+	conn, err := net.ListenUDP("udp", nil)
 	if err != nil {
 		log.Println(err)
 		return
@@ -56,7 +36,7 @@ func (this *Connecter) Connect(id string) {
 	srcAddr := string(b[:n])
 	log.Println("got my remote addr", srcAddr)
 	// tell A client srcAddr and get A client addr
-	addr, err := this.askAddr(srcAddr, id)
+	addr, err := this.rpcc.askAddr(srcAddr, id)
 	if err != nil {
 		log.Println("ask for A client address failed", err)
 		return
@@ -67,14 +47,7 @@ func (this *Connecter) Connect(id string) {
 }
 
 func NewConnecter() *Connecter {
-	conn, err := grpc.Dial(config.Cfg.Client.RpcAddress, grpc.WithInsecure())
-	if err != nil {
-		log.Println(err)
-		return nil
-	}
-	connecter := new(Connecter)
-	connecter.conn = conn
-	connecter.ctx = context.Background()
-	connecter.ComputerServ = msg.NewComputerServiceClient(conn)
-	return connecter
+	c := new(Connecter)
+	c.rpcc = NewRpcClient()
+	return c
 }

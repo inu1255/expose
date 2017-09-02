@@ -20,7 +20,7 @@ type OnlineServer struct {
 func (this *OnlineServer) Run() {
 	tcp_addr, _ := net.ResolveTCPAddr("tcp", config.Cfg.Server.TcpAddress)
 	log.Println("listen tcp:", tcp_addr)
-	lis, err := net.Listen("tcp4", tcp_addr.String())
+	lis, err := net.Listen("tcp", tcp_addr.String())
 	if err != nil {
 		log.Println(err)
 		return
@@ -65,7 +65,7 @@ func (this *OnlineServer) keepAlive(conn net.Conn) {
 func (this *OnlineServer) startUDP() {
 	udp_addr, _ := net.ResolveUDPAddr("udp", config.Cfg.Server.UdpAddress)
 	log.Println("listen udp:", udp_addr)
-	conn, err := net.ListenUDP("udp4", udp_addr)
+	conn, err := net.ListenUDP("udp", udp_addr)
 	if err != nil {
 		log.Println(err)
 		return

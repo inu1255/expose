@@ -11,7 +11,7 @@ import (
 )
 
 func RpcServer() {
-	lis, err := net.Listen("tcp", config.Cfg.Server.RpcAddress)
+	lis, err := net.Listen("tcp4", config.Cfg.Server.RpcAddress)
 	if err != nil {
 		log.Println(err)
 		return

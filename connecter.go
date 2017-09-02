@@ -35,7 +35,7 @@ func (this *Connecter) askAddr(srcAddr, id string) (string, error) {
 // connect to A client with id
 func (this *Connecter) Connect(id string) {
 	// create conn
-	conn, err := net.ListenUDP("udp", nil)
+	conn, err := net.ListenUDP("udp4", nil)
 	if err != nil {
 		log.Println(err)
 		return

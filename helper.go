@@ -99,6 +99,7 @@ func WriteUdp(src, dst string, buff []byte) (int, error) {
 	//源IP
 	srcAddr, _ := net.ResolveUDPAddr("udp", src)
 	srcIP := srcAddr.IP
+	log.Println(srcAddr.String(), dstAddr.String())
 	//填充ip首部
 	iph := &ipv4.Header{
 		Version: ipv4.Version,

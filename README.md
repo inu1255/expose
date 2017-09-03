@@ -1,4 +1,6 @@
 # expose your port to other
+__the repertory is Abandoned,because nat bind ip:port,different package not forward to inner net__
+
 the diffrence from other tool is that your data is not flow through the server 
 
 ## flow chart
